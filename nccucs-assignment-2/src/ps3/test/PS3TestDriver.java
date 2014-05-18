@@ -54,8 +54,7 @@ public class PS3TestDriver {
 
 
     /** String -> Graph: maps the names of graphs to the actual graph **/
-    //TODO for the student: Parameterize the next line correctly.
-    //private final Map<String, _______> graphs = new HashMap<String, ________>();
+    private final Map<String, Graph<WeightedNode>> graphs = new HashMap<String, Graph<WeightedNode>>();
     /** String -> WeightedNode: maps the names of nodes to the actual node **/
     private final Map<String, WeightedNode> nodes = new HashMap<String, WeightedNode>();
     private final PrintWriter output;
@@ -139,10 +138,8 @@ public class PS3TestDriver {
     }
 
     private void createGraph(String graphName) {
-        // Insert your code here.
-
-        // graphs.put(graphName, ___);
-        // output.println(...);
+        graphs.put(graphName, new Graph<WeightedNode>());
+        output.println("created graph " + graphName);
     }
 
     private void createNode(List<String> arguments) {
@@ -157,10 +154,8 @@ public class PS3TestDriver {
     }
 
     private void createNode(String nodeName, String cost) {
-        // Insert your code here.
-
-        // nodes.put(nodeName, ___);
-        // output.println(...);
+        nodes.put(nodeName, new WeightedNode(nodeName, Integer.parseInt(cost)));
+        output.println("created node " + nodeName + " with cost " + cost);
     }
 
     private void addNode(List<String> arguments) {
@@ -175,11 +170,8 @@ public class PS3TestDriver {
     }
 
     private void addNode(String graphName, String nodeName) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // ___ = nodes.get(nodeName);
-        // output.println(...);
+        graphs.get(graphName).addNode(nodes.get(nodeName));
+        output.println("added node " + nodeName + " to " + graphName);
     }
 
     private void addEdge(List<String> arguments) {
@@ -195,12 +187,8 @@ public class PS3TestDriver {
     }
 
     private void addEdge(String graphName, String parentName, String childName) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // ___ = nodes.get(parentName);
-        // ___ = nodes.get(childName);
-        // output.println(...);
+        graphs.get(graphName).addEdge(nodes.get(parentName), nodes.get(childName));
+        output.println("added edge from " + parentName + " to " + childName + " in " + graphName);
     }
 
 
@@ -214,10 +202,14 @@ public class PS3TestDriver {
     }
 
     private void listNodes(String graphName) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // output.println(...);
+        HashSet<WeightedNode> nodeSet = graphs.get(graphName).nodes();
+        WeightedNode[] nodeArray = nodeSet.toArray(new WeightedNode[0]);
+        Arrays.sort(nodeArray);
+        output.print(graphName + " contains:");
+        for (int i = 0; i < nodeArray.length; i++) {
+            output.print(" " + nodeArray[i].name());
+        }
+        output.println();
     }
 
     private void listChildren(List<String> arguments) {
@@ -231,11 +223,14 @@ public class PS3TestDriver {
     }
 
     private void listChildren(String graphName, String parentName) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // ___ = nodes.get(parentName);
-        // output.println(...);
+        HashSet<WeightedNode> childrenSet = graphs.get(graphName).children(nodes.get(parentName));
+        WeightedNode[] childrenArray = childrenSet.toArray(new WeightedNode[0]);
+        Arrays.sort(childrenArray);
+        output.print("the children of " + parentName + " in " + graphName + " are:");
+        for (int i = 0; i < childrenArray.length; i++) {
+            output.print(" " + childrenArray[i].name());
+        }
+        output.println();
     }
 
     private void findPath(List<String> arguments) {
@@ -273,16 +268,29 @@ public class PS3TestDriver {
     }
 
     private void findPath(String graphName, List<String> sourceArgs, List<String> destArgs) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // ___ = nodes.get(sourceArgs.get(i));
-        // ___ = nodes.get(destArgs.get(i));
-        // ...
-        // DijkstraSpecializer specializer = new DijkstraSpecializer(...);
-        // Path p = PathFinder.findPath(specializer, ..., ...);
-        // output.println(...);
-
+        Graph<WeightedNode> graph = graphs.get(graphName);
+        ArrayList<Path<WeightedNode>> startPaths = new ArrayList<Path<WeightedNode>>();
+        ArrayList<WeightedNode> destNodes = new ArrayList<WeightedNode>();
+        Iterator<String> sourceIter = sourceArgs.iterator();
+        while (sourceIter.hasNext()) {
+            startPaths.add(new WeightedNodePath(nodes.get(sourceIter.next())));
+        }
+        Iterator<String> destIter = destArgs.iterator();
+        while (destIter.hasNext()) {
+            destNodes.add(nodes.get(destIter.next()));
+        }
+        DijkstraSpecializer<WeightedNode> specializer = new DijkstraSpecializer<WeightedNode>(graph);
+        Path<WeightedNode> p = PathFinder.findPath(specializer, startPaths, destNodes);
+        if (p == null)
+            output.println("no path found in " + graphName);
+        else {
+            Iterator<WeightedNode> pathIter = p.iterator();
+            output.print("shortest path in " + graphName + ":");
+            while (pathIter.hasNext()) {
+                output.print(" " + pathIter.next().name());
+            }
+            output.println();
+        }
     }
 
     /**

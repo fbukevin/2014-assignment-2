@@ -1,0 +1,82 @@
+
+Remark:
+1. Problem 2 mention as follow:
+   "Furthermore, the Graph abstraction should not assume that node objects are of any particular runtime type. In fact, your Graph data type's operations should be valid on nodes of any type, including Object; you should use Java's generic type system to accomplish this goal."
+   This implys that the default data type of vertext (node) should be "Object".
+
+2. The brief description of the choice of each operation is following a mark "=>" in each entry. It's written in Chinese to let TA easily reads without confusion with English.
+
+========================== API Start From Here ==========================
+
+# Graph API:
+< Constructor >
+- public Graph()
+	creates a new, empty graph.
+	=> 建構 empty Graph 的函式，類別必含空建構子是 Java 的要求，且圖類別初始可為空
+
+- public Graph(InputStreamReader in, String delim)
+	read graph from input stream. (in is input stream, delim is separator)
+	=> 有輸入的建構子，用來讀取以 data stream 為輸入的 graph data
+
+< Method >
+- public void addEdge(Object from, Object to)
+	add an directed edge connects "from" and "to"
+	=> 建構 connected graph 的必要運算
+
+- public void addVertex(Object v)
+	add a vertext v to this graph
+	=> 建構 graph 必要的運算
+
+- public int V()
+	return the number of vertices in the graph
+	=> 有需要知道有多少 vertex，可以在找 path 時用來判斷還有多少點沒 active 
+
+- public int E()
+	return the number of edges in the graph
+	=> 有需要知道有多少 edge
+
+- public Iterable<Object> vertices()
+	list all vertice in the graph
+	=> 有需要知道有哪些點，可以在找 path 時逐一放入 queue 中
+
+- public Iterable<Object> adjacentTo(String v)
+	list neighbors of vertex v
+	=> 有需要知道鄰居有誰，在找 path 時可用於判斷還有哪些鄰居無 active
+
+- public int degree(Object v)
+	return the number of neighbors of v
+	=> 有需要知道有多少鄰居，在找 path 時判斷還有多少鄰居無 active 
+
+- public boolean isVertex(Object v)
+	verify if v is a vertex in the graph
+	=> 可以判斷給定的節點 v 是否為孤立點，若要找 path 的點是孤立點，無需 PathFinder
+
+- public boolean hasEdge(Object from, Object to)
+	verify if there is an edge between "from" and "to"
+	=> 可判斷兩節點間是否相連，是則為鄰居，否則不是
+
+- public void TraverseBFS(Graph g, Object s)
+	traverse the graph in breadth first search algorithm
+	=> 圖的基本走訪演算法，可用來檢查圖是否連通，以及尋找鄰居
+
+- public void TraverseDFS(Graph g, Object s)
+	=> 圖的基本走訪演算法，可用來檢查圖是否連通，以及尋找鄰居
+
+# Path Finder API: 
+< Constructor >
+- public PathFinder(Graph G, Object s)
+	create a path finder to graph G and source from vertext s
+	=> 路徑搜尋器的建構子，應至少要給予圖與起始點，不應有空參數建構子
+
+- public int distanceTo(Object v)
+	return the length of shortest path from source vertext s to vertext v
+	=> 距離為路徑的屬性之一，應可取得
+
+
+- public Iterable<Object> pathTo(Object v)
+	list all verteices on the shortest path from source vertext s to vertex v
+	=> 路徑沿途經過的節點，為路徑屬性之一，應可取得
+
+- public boolean isReachable(Object v)
+	verify if v is reachable from source s
+	=> 可以判斷要找 path 的點之間是否相連，不相連則無需 PathFinder

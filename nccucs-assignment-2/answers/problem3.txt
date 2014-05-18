@@ -1,0 +1,12 @@
+
+I create MyGreateTests.java file for Class MyGreatTests
+
+Following are additional test files: p3example1 and p3example2
+
+<p3example1>
+To test basic functions, I create file example3.test and example3.expected.
+I create a 2-node, 1-edge graph then call the methods listNodes and listChildren to check the data processing.
+
+<p3example2>
+In this test, I put all my operations and some other tests into a test file.  
+Those other tests were observational cases. I test the operations' performance of object to maximize the ability of functions. 

@@ -1,0 +1,17 @@
+
+a. How many hours did you spend on each problem of this problem set? (Only include time when you are completely focused on CSE 331. For example, if you worked an hour in your noisy dorm lounge, or you were periodically reading email or IMs, don't count that hour.)
+
+=>	problem1:	about 30 minutes
+	problem2:	about 1 hour
+	problem3:	about 3 hours
+	problem4:	about 10 hours
+	problem5:	about 2 hour
+	problem6:	about 2 hours
+	problem7:	about 1 hour
+
+===========
+b. In retrospect, what could you have done better to reduce the time you spent solving this problem set?
+
+=> 
+	I think get more familiar with Java library, especially Graph API, could help me reduce time it, since most graph api that I've learned in Data Structure class.
+	On the other hand, being familiar with JUnit tools and API could help me develop faster as well.

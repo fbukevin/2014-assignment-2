@@ -1,0 +1,12 @@
+
+To test PathFinder implementation (PathFinderSpecializer and DijkstraPathFinderSpecializer involved), I create test file p7example. 
+
+Because I want to test Dijkstra algorithm implementation, I create some tests with graph contains single source. Different cases of destnation are provided as following:
+1. as same as source vertex
+	=> 為了測試同一個點是否能找到最短路徑
+2. different vertex without connecting to source vertex
+	=> 為了測試兩個不同但是沒有連接的點，是否不能找到最短路徑
+3. some cases of direction edges for different vertex with connecting to source vertex
+	=> 為了測試有向圖是否能找到最短路徑
+4. different vertices with different cost
+	=> 對於不同 cost 的點，測試是否能找到最短路徑

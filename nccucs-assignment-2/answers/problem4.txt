@@ -1,0 +1,4 @@
+
+To implement a method to create and operate large size graph data, I use HashMap as the data type of nodes and graph, because hash can distribute data scatteredly. HashMap also provide good complexity to search element in correspoding bucket. In large and high varaity data set, HashMap has low collision rate for hash data structure.
+
+Since Map data type represent as (key, value) pair, we can directly access the value after calculating the key. 

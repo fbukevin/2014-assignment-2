@@ -1,0 +1,22 @@
+
+# Sequence Operation
++ : concatenation	=> [a,b] + [c, d] = [a, b, c, d]
+
+# Key-value Operation
+m(key)： represent the value associated to key by the Map m
+
+# Priority Queue Operations
+- active.extractMin(): get the minimal element of queue active
+- paths(queueMin): return the least cost path of the element queueMin of queue active
+- active.insert(c): insert an element c into queue active
+- finished.insert(queueMin): insert queueMin into set finished
+- active.isEmpty(): check if queue active is empty
+
+# Operations of test script
+- CreateGraph graphName: Creates a new graph which shall be named graphName.
+- CreateNode nodeName cost: Creates a new node named by the string nodeName with the cost specified by the non-negative integer cost.
+- AddNode graphName nodeName: Adds a node represented by the string nodeName to the graph named graphName.
+- AddEdge graphName parentNode childNode: Creates an edge in graph graphName from parentNode to childNode.
+- ListNodes graphName: List nodes in the graph.
+- ListChildren graphName parentNode: List children and its parent in the graph.
+- FindPath graphName from1 [from2 [from3 ... ] ] -> to1 [ to2 [ to3 ... ] ]: Find the shortest path from some nodes to some nodes.
